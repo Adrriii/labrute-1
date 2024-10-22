@@ -398,6 +398,7 @@ const handleDailyTournaments = async (
         ranking: true,
         canRankUpSince: true,
         tournamentWins: true,
+        ascendedSkills: true,
       },
     });
     const loserBrute = await prisma.brute.findUnique({
@@ -1843,6 +1844,7 @@ const handleEventTournament = async (
         ranking: true,
         eventId: true,
         xp: true,
+        ascendedSkills: true,
       },
     });
 
