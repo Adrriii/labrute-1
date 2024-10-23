@@ -1292,12 +1292,16 @@ const Brutes = {
       // Achievement
       await increaseAchievement(prisma, authed.id, brute.id, 'ascend');
 
+      const ascensions = brute.ascendedSkills.length
+        + brute.ascendedWeapons.length
+        + brute.ascendedPets.length;
+
       // Add ascend log
       await prisma.log.create({
         data: {
           currentBruteId: brute.id,
           type: LogType.ascend,
-          level: brute.ascendedSkills.length,
+          level: ascensions,
         },
         select: { id: true },
       });
@@ -1310,8 +1314,7 @@ const Brutes = {
       // Send notification
       DISCORD.sendAscendNotification({
         name: brute.name,
-        ascendedSkills: brute.ascendedSkills,
-      });
+      }, ascensions);
 
       res.send({
         success: true,
